@@ -13,6 +13,18 @@
         <finalName>chuck-ws</finalName>
         <plugins>
             <plugin>
+                  <groupId>org.wildfly.swarm</groupId>
+                    <artifactId>wildfly-swarm-plugin</artifactId>
+                      <version>${version.wildfly.swarm}</version>
+                        <executions>
+                                <execution>
+                                          <goals>
+                                                      <goal>package</goal>
+                                                            </goals>
+                                                                </execution>
+                                                                  </executions>
+                                                              </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
@@ -27,6 +39,13 @@
 
     <dependencyManagement>
         <dependencies>
+                      <dependency>
+                                <groupId>org.wildfly.swarm</groupId>
+                                      <artifactId>bom</artifactId>
+                                            <version>${version.wildfly.swarm}</version>
+                                                  <scope>import</scope>
+                                                        <type>pom</type>
+                                                            </dependency>
             <dependency>
                 <groupId>org.glassfish.jersey</groupId>
                 <artifactId>jersey-bom</artifactId>
@@ -52,6 +71,9 @@
         -->
     </dependencies>
     <properties>
+        <version.wildfly.swarm>
+            2016.10.0
+        </version.wildfly.swarm>
         <jersey.version>2.24.1</jersey.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
