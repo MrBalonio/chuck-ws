@@ -3,7 +3,6 @@ package com.balonio.ws.chuck_ws;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
 
 
 public class ChuckFact {

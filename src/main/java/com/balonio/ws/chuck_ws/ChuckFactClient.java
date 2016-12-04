@@ -9,7 +9,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -24,31 +23,27 @@ public class ChuckFactClient {
 	
 	@PostConstruct
 	 protected void init(){
-		
 		url = "https://chuck-api.balonio.com/jokes/random";
     	certs = new TrustManager[]{new X509TrustManager() {
-
-
 			@Override
 			public void checkClientTrusted(java.security.cert.X509Certificate[] arg0, String arg1)
 					throws java.security.cert.CertificateException {
 				// TODO Auto-generated method stub
 				
 			}
-
 			@Override
 			public void checkServerTrusted(java.security.cert.X509Certificate[] arg0, String arg1)
 					throws java.security.cert.CertificateException {
 				// TODO Auto-generated method stub
 				
 			}
-
 			@Override
 			public java.security.cert.X509Certificate[] getAcceptedIssuers() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-        }};      
+			}
+    	  };      
     	 SSLContext ctx = null;
          try {
              ctx = SSLContext.getInstance("TLS");
