@@ -1,6 +1,7 @@
 package com.balonio.ws.chuck_ws;
 
 import java.security.SecureRandom;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
@@ -19,6 +20,7 @@ public class ChuckFactClient {
 	ChuckFact response;
 	Client client;
 	String url ;
+	private final static Logger LOGGER = Logger.getLogger(ChuckFactClient.class.getName());
 	TrustManager[] certs;
 	
 	@PostConstruct
