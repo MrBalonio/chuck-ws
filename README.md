@@ -1,5 +1,10 @@
 # Balonio chuck joke api
 ## Run with
 ```
-mvn clean package wildfly-swarm:run
+mvn -Dswarm.context.path=/chuck-ws -Dswarm.http.port=7080 clean package
+wildfly-swarm:run
+```
+Then:
+```
+curl -vvv -k  http://localhost:7080/chuck-ws/fact/random
 ```
