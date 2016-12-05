@@ -22,7 +22,7 @@ public class ChuckFactClient {
 	String url ;
 	private final static Logger LOGGER = Logger.getLogger(ChuckFactClient.class.getName());
 	TrustManager[] certs;
-	
+
 	@PostConstruct
 	 protected void init(){
 		url = "https://chuck-api.balonio.com/jokes/random";
@@ -31,13 +31,13 @@ public class ChuckFactClient {
 			public void checkClientTrusted(java.security.cert.X509Certificate[] arg0, String arg1)
 					throws java.security.cert.CertificateException {
 				// TODO Auto-generated method stub
-				
+
 			}
 			@Override
 			public void checkServerTrusted(java.security.cert.X509Certificate[] arg0, String arg1)
 					throws java.security.cert.CertificateException {
 				// TODO Auto-generated method stub
-				
+
 			}
 			@Override
 			public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -45,17 +45,17 @@ public class ChuckFactClient {
 				return null;
 			}
 			}
-    	  };      
+    	  };
     	 SSLContext ctx = null;
          try {
              ctx = SSLContext.getInstance("TLS");
              ctx.init(null, certs, new SecureRandom());
          } catch (java.security.GeneralSecurityException e) {
         	 LOGGER.severe(e.toString());
-  
+
          }
-    	
-    	client = ClientBuilder.newBuilder()    	    		
+
+    	client = ClientBuilder.newBuilder()
     		        .sslContext(ctx)
     		        .hostnameVerifier(new HostnameVerifier() {
     	                @Override
@@ -64,14 +64,16 @@ public class ChuckFactClient {
     	                }
     	            })
     		        .build();
-    	
-		
+
+
 	}
 	public String getRandom(){
 		WebTarget target;
 		target = client.target(url);
+        LOGGER.info("Fetching request");
 		response = target.request(MediaType.APPLICATION_JSON).get(ChuckFact.class);
+        LOGGER.info("done");
 		return response.getValue();
 	}
-	
+
 }

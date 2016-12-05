@@ -8,7 +8,7 @@ import java.util.List;
 public class ChuckFact {
 
     private List<String> category = new ArrayList<String>();
-    private String iconUrl;
+    private String icon_url;
     private String id;
     private String url;
     private String value;
@@ -34,19 +34,19 @@ public class ChuckFact {
     /**
      * 
      * @return
-     *     The iconUrl
+     *     The icon_url
      */
-    public String getIconUrl() {
-        return iconUrl;
+    public String geticon_url() {
+        return icon_url;
     }
 
     /**
      * 
-     * @param iconUrl
+     * @param icon_url
      *     The icon_url
      */
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
+    public void seticon_url(String icon_url) {
+        this.icon_url = icon_url;
     }
 
     /**
