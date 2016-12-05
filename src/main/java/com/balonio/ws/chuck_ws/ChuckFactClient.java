@@ -51,6 +51,7 @@ public class ChuckFactClient {
              ctx = SSLContext.getInstance("TLS");
              ctx.init(null, certs, new SecureRandom());
          } catch (java.security.GeneralSecurityException e) {
+        	 LOGGER.severe(e.toString());
   
          }
     	
