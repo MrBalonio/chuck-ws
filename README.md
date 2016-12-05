@@ -8,3 +8,4 @@ Then:
 ```
 curl -vvv -k  http://localhost:7080/chuck-ws/fact/random
 ```
+Cool.
