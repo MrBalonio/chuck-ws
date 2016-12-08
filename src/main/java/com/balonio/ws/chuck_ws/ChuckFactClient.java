@@ -1,6 +1,7 @@
 package com.balonio.ws.chuck_ws;
 
 import java.security.SecureRandom;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -10,10 +11,13 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+
+import org.glassfish.jersey.client.ClientProperties;
 
 @Dependent
 public class ChuckFactClient {
@@ -54,7 +58,7 @@ public class ChuckFactClient {
         	 LOGGER.severe(e.toString());
 
          }
-
+         
     	client = ClientBuilder.newBuilder()
     		        .sslContext(ctx)
     		        .hostnameVerifier(new HostnameVerifier() {
@@ -64,6 +68,7 @@ public class ChuckFactClient {
     	                }
     	            })
     		        .build();
+    	client.property(ClientProperties.CONNECT_TIMEOUT, 5000);
 
 
 	}
@@ -71,7 +76,23 @@ public class ChuckFactClient {
 		WebTarget target;
 		target = client.target(url);
         LOGGER.info("Fetching request");
+        int hold_time = Integer.parseInt(System.getProperty("com.balonio.ws.chuck_ws.retry_hold", "5000"));
+        try{
 		response = target.request(MediaType.APPLICATION_JSON).get(ChuckFact.class);
+        }catch(ProcessingException e){
+        	
+        	LOGGER.log(Level.SEVERE,e.toString());
+        	LOGGER.log(Level.INFO,"Retrying");
+            try{
+            Thread.sleep((hold_time));
+        	response = target.request(MediaType.APPLICATION_JSON).get(ChuckFact.class);
+            }catch(ProcessingException | InterruptedException r){
+            	LOGGER.log(Level.SEVERE,r.toString());
+            	LOGGER.log(Level.INFO,"Unable to get FACTafter retrying transaction");
+            	
+            }
+        	
+        }
         LOGGER.info("done");
 		return response.getValue();
 	}
